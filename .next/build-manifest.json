@@ -28,7 +28,15 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/editarcliente/[pid]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/login": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
