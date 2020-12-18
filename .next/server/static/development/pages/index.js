@@ -93,450 +93,6 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./components/Cliente.js":
-/*!*******************************!*\
-  !*** ./components/Cliente.js ***!
-  \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "sweetalert2");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @apollo/client */ "@apollo/client");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\components\\Cliente.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-const ELIMINAR_CLIENTE = _apollo_client__WEBPACK_IMPORTED_MODULE_2__["gql"]`
-    mutation eliminarCliente($id: ID!) {
-        eliminarCliente(id:$id) 
-    }
-`;
-const OBTENER_CLIENTES_USUARIO = _apollo_client__WEBPACK_IMPORTED_MODULE_2__["gql"]`
-    query obtenerClientesVendedor {
-        obtenerClientesVendedor {
-            id
-            nombre
-            apellido
-            empresa
-            email
-        }
-    }
-
-`;
-
-const Cliente = ({
-  cliente
-}) => {
-  // mutation para eliminar cliente
-  const [eliminarCliente] = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_2__["useMutation"])(ELIMINAR_CLIENTE, {
-    update(cache) {
-      // obtener una copia del objeto de cache
-      const {
-        obtenerClientesVendedor
-      } = cache.readQuery({
-        query: OBTENER_CLIENTES_USUARIO
-      }); // Reescribir el cache
-
-      cache.writeQuery({
-        query: OBTENER_CLIENTES_USUARIO,
-        data: {
-          obtenerClientesVendedor: obtenerClientesVendedor.filter(clienteActual => clienteActual.id !== id)
-        }
-      });
-    }
-
-  });
-  const {
-    nombre,
-    apellido,
-    empresa,
-    email,
-    id
-  } = cliente; // Elimina un cliente
-
-  const confirmarEliminarCliente = () => {
-    sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-      title: '¿Deseas eliminar a este cliente?',
-      text: "Esta acción no se puede deshacer",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminar',
-      cancelButtonText: 'No, Cancelar'
-    }).then(async result => {
-      if (result.value) {
-        try {
-          // Eliminar por ID
-          const {
-            data
-          } = await eliminarCliente({
-            variables: {
-              id
-            }
-          }); // console.log(data);
-          // Mostrar una alerta
-
-          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Eliminado!', data.eliminarCliente, 'success');
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    });
-  };
-
-  const editarCliente = () => {
-    next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push({
-      pathname: "/editarcliente/[id]",
-      query: {
-        id
-      }
-    });
-  };
-
-  return __jsx("tr", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 91,
-      columnNumber: 13
-    }
-  }, __jsx("td", {
-    className: "border px-4 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 92,
-      columnNumber: 17
-    }
-  }, nombre, "  ", apellido), __jsx("td", {
-    className: "border px-4 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 93,
-      columnNumber: 17
-    }
-  }, empresa), __jsx("td", {
-    className: "border px-4 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 94,
-      columnNumber: 17
-    }
-  }, email), __jsx("td", {
-    className: "border px-4 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 95,
-      columnNumber: 17
-    }
-  }, __jsx("button", {
-    type: "button",
-    className: "flex justify-center items-center bg-red-800 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold",
-    onClick: () => confirmarEliminarCliente(),
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 96,
-      columnNumber: 21
-    }
-  }, "Eliminar", __jsx("svg", {
-    fill: "none",
-    stroke: "currentColor",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    className: "w-4 h-4 ml-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 103,
-      columnNumber: 25
-    }
-  }, __jsx("path", {
-    d: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 103,
-      columnNumber: 170
-    }
-  })))), __jsx("td", {
-    className: "border px-4 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 106,
-      columnNumber: 17
-    }
-  }, __jsx("button", {
-    type: "button",
-    className: "flex justify-center items-center bg-green-600 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold",
-    onClick: () => editarCliente(),
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 107,
-      columnNumber: 21
-    }
-  }, "Editar", __jsx("svg", {
-    fill: "none",
-    stroke: "currentColor",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    className: "w-4 h-4 ml-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 114,
-      columnNumber: 25
-    }
-  }, __jsx("path", {
-    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 114,
-      columnNumber: 170
-    }
-  })))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Cliente);
-
-/***/ }),
-
-/***/ "./components/Header.js":
-/*!******************************!*\
-  !*** ./components/Header.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @apollo/client */ "@apollo/client");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\components\\Header.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-const OBTENER_USUARIO = _apollo_client__WEBPACK_IMPORTED_MODULE_1__["gql"]`
-    query obtenerUsuario{
-        obtenerUsuario {
-            id
-            nombre
-            apellido
-        }
-    }
-`;
-
-const Header = () => {
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])(); // query de apollo
-
-  const {
-    data,
-    loading,
-    error
-  } = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(OBTENER_USUARIO); // console.log(data)
-  // console.log(loading)
-  // console.log(error)
-  // Proteger que no accedamos a data antes de tener resultados
-
-  if (loading) return null; // Si no hay informacion
-
-  if (!data) {
-    return router.push('/login');
-  }
-
-  const {
-    nombre,
-    apellido
-  } = data.obtenerUsuario;
-
-  const cerrarSesion = () => {
-    localStorage.removeItem('token');
-    router.push('/login');
-  };
-
-  return __jsx("div", {
-    className: "sm:flex sm:justify-between mb-6",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 42,
-      columnNumber: 9
-    }
-  }, __jsx("p", {
-    className: "mr-2 mb-5 lg:mb-0",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 43,
-      columnNumber: 13
-    }
-  }, "Hola: ", nombre, " ", apellido), __jsx("button", {
-    onClick: () => cerrarSesion(),
-    type: "button",
-    className: "bg-blue-800 w-full sm:w-auto font-bold uppercase text-xs rounded py-1 px-2 text-white shadow-md",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 45,
-      columnNumber: 13
-    }
-  }, "Cerrar Sesi\xF3n"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Header);
-
-/***/ }),
-
-/***/ "./components/Layout.js":
-/*!******************************!*\
-  !*** ./components/Layout.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/head */ "next/head");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Sidebar */ "./components/Sidebar.js");
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./components/Header.js");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\components\\Layout.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-
-
-const Layout = ({
-  children
-}) => {
-  // Hook de routing
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_4__["useRouter"])();
-  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 14,
-      columnNumber: 13
-    }
-  }, __jsx("title", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 15,
-      columnNumber: 17
-    }
-  }, "CRM - Administraci\xF3n de Clientes"), __jsx("link", {
-    rel: "stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
-    integrity: "sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=",
-    crossOrigin: "anonymous",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 16,
-      columnNumber: 17
-    }
-  }), __jsx("link", {
-    href: "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css",
-    rel: "stylesheet",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 17,
-      columnNumber: 17
-    }
-  })), router.pathname === '/login' || router.pathname === '/nuevacuenta' ? __jsx("div", {
-    className: "bg-gray-800 min-h-screen flex flex-col justify-center",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 21,
-      columnNumber: 17
-    }
-  }, __jsx("div", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 22,
-      columnNumber: 21
-    }
-  }, children)) : __jsx("div", {
-    className: "bg-gray-200 min-h-screen",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 28,
-      columnNumber: 17
-    }
-  }, __jsx("div", {
-    className: "sm:flex min-h-screen",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 29,
-      columnNumber: 21
-    }
-  }, __jsx(_components_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 30,
-      columnNumber: 25
-    }
-  }), __jsx("main", {
-    className: "sm:w-2/3 xl:w-4/5 sm:min-h-screen p-5",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33,
-      columnNumber: 25
-    }
-  }, __jsx(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 29
-    }
-  }), children))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Layout);
-
-/***/ }),
-
 /***/ "./components/Sidebar.js":
 /*!*******************************!*\
   !*** ./components/Sidebar.js ***!
@@ -552,15 +108,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\components\\Sidebar.js";
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\Sidebar.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
 const Sidebar = () => {
-  // routing de next
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])(); // console.log(router.pathname)
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])();
+
+  const presionarclick = () => {
+    menu.classList.toggle("hidden");
+  };
 
   return __jsx("aside", {
     className: "bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5",
@@ -568,142 +127,122 @@ const Sidebar = () => {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 13,
-      columnNumber: 9
+      columnNumber: 5
     }
   }, __jsx("div", {
+    className: "flex justify-between",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 14,
-      columnNumber: 13
+      columnNumber: 7
     }
   }, __jsx("p", {
-    className: "text-white text-2xl font-black",
+    className: "text-white text-xl font-black",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 15,
-      columnNumber: 17
+      columnNumber: 9
     }
-  }, "CRM Clientes")), __jsx("nav", {
-    className: "mt-5 list-none",
+  }, "Transporte Pegasus"), __jsx("div", {
+    className: "block lg:hidden ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 9
+    }
+  }, __jsx("button", {
+    id: "boton",
+    onClick: () => presionarclick(),
+    className: "flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white ",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 18,
+      columnNumber: 11
+    }
+  }, __jsx("svg", {
+    className: "fill-current h-3 w-3",
+    viewBox: "0 0 20 20",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23,
       columnNumber: 13
+    }
+  }, __jsx("title", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28,
+      columnNumber: 15
+    }
+  }, "Menu"), __jsx("path", {
+    d: "M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 29,
+      columnNumber: 15
+    }
+  }))))), __jsx("div", {
+    id: "menu",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 7
+    }
+  }, __jsx("nav", {
+    className: "mt-5 list-none",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 36,
+      columnNumber: 9
     }
   }, __jsx("li", {
     className: router.pathname === "/" ? "bg-blue-800 p-2" : "p-2",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
-      columnNumber: 17
+      lineNumber: 37,
+      columnNumber: 11
     }
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/",
+    href: "/clientes",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
-      columnNumber: 21
+      lineNumber: 38,
+      columnNumber: 13
     }
   }, __jsx("a", {
     className: "text-white block",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
-      columnNumber: 25
+      lineNumber: 39,
+      columnNumber: 15
     }
   }, "Clientes"))), __jsx("li", {
     className: router.pathname === "/pedidos" ? "bg-blue-800 p-2" : "p-2",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26,
-      columnNumber: 17
+      lineNumber: 42,
+      columnNumber: 11
     }
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
     href: "/pedidos",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27,
-      columnNumber: 21
-    }
-  }, __jsx("a", {
-    className: "text-white block",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 28,
-      columnNumber: 25
-    }
-  }, "Pedidos"))), __jsx("li", {
-    className: router.pathname === "/productos" ? "bg-blue-800 p-2" : "p-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33,
-      columnNumber: 17
-    }
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/productos",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 21
-    }
-  }, __jsx("a", {
-    className: "text-white block",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 35,
-      columnNumber: 25
-    }
-  }, "Productos")))), __jsx("div", {
-    className: "sm:mt-10",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 42,
-      columnNumber: 13
-    }
-  }, __jsx("p", {
-    className: "text-white text-2xl font-black",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 43,
-      columnNumber: 17
-    }
-  }, "Otras Opciones")), __jsx("nav", {
-    className: "mt-5 list-none",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 45,
-      columnNumber: 13
-    }
-  }, __jsx("li", {
-    className: router.pathname === "/mejoresvendedores" ? "bg-blue-800 p-2" : "p-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 46,
-      columnNumber: 17
-    }
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/mejoresvendedores",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 47,
-      columnNumber: 21
+      columnNumber: 13
     }
   }, __jsx("a", {
     className: "text-white block",
@@ -711,36 +250,1275 @@ const Sidebar = () => {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 48,
-      columnNumber: 25
+      columnNumber: 15
     }
-  }, "Mejores Vendedores"))), __jsx("li", {
-    className: router.pathname === "/mejoresclientes" ? "bg-blue-800 p-2" : "p-2",
+  }, "Pedidos"))), __jsx("li", {
+    className: router.pathname === "/productos" ? "bg-blue-800 p-2" : "p-2",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53,
-      columnNumber: 17
+      lineNumber: 51,
+      columnNumber: 11
     }
   }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/mejoresclientes",
+    href: "/productos",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 54,
-      columnNumber: 21
+      lineNumber: 56,
+      columnNumber: 13
     }
   }, __jsx("a", {
     className: "text-white block",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 55,
-      columnNumber: 25
+      lineNumber: 57,
+      columnNumber: 15
     }
-  }, "Mejores Clientes")))));
+  }, "Productos")))), __jsx("div", {
+    className: "sm:mt-10",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 62,
+      columnNumber: 9
+    }
+  }, __jsx("p", {
+    className: "text-white text-2xl font-black",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 63,
+      columnNumber: 11
+    }
+  }, "Otras Opciones")), __jsx("nav", {
+    className: "mt-5 list-none",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 65,
+      columnNumber: 9
+    }
+  }, __jsx("li", {
+    className: router.pathname === "/mejoresvendedores" ? "bg-blue-800 p-2" : "p-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 66,
+      columnNumber: 11
+    }
+  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/mejoresvendedores",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 73,
+      columnNumber: 13
+    }
+  }, __jsx("a", {
+    className: "text-white block",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 74,
+      columnNumber: 15
+    }
+  }, "Mejores Vendedores"))), __jsx("li", {
+    className: router.pathname === "/mejoresclientes" ? "bg-blue-800 p-2" : "p-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 77,
+      columnNumber: 11
+    }
+  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/mejoresclientes",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 82,
+      columnNumber: 13
+    }
+  }, __jsx("a", {
+    className: "text-white block",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 83,
+      columnNumber: 15
+    }
+  }, "Mejores Clientes"))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Sidebar);
+
+/***/ }),
+
+/***/ "./components/header.js":
+/*!******************************!*\
+  !*** ./components/header.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @apollo/client */ "@apollo/client");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\header.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const OBTENER_USUARIO = _apollo_client__WEBPACK_IMPORTED_MODULE_1__["gql"]`
+  query obtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      apellido
+    }
+  }
+`;
+
+const Header = () => {
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])();
+  const {
+    data,
+    loading,
+    error
+  } = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(OBTENER_USUARIO);
+  if (loading) return null;
+
+  if (!data) {
+    return router.push("/login");
+  }
+
+  const {
+    nombre,
+    apellido
+  } = data.obtenerUsuario;
+
+  const cerrarSesion = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
+  return __jsx("div", {
+    className: "sm:flex sm:justify-between mb-6",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 5
+    }
+  }, __jsx("p", {
+    className: "mr-2 mb-5 lg:mb-0",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 7
+    }
+  }, "Hola: ", nombre, " ", apellido), __jsx("button", {
+    onClick: () => cerrarSesion(),
+    type: "button",
+    className: "bg-blue-800 w-full sm:w-auto font-bold uppercase text-xs rounded py-1 px-2 text-white shadow-md",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39,
+      columnNumber: 7
+    }
+  }, "Cerrar Sesi\xF3n"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Header);
+
+/***/ }),
+
+/***/ "./components/interfas/footer/Footer.js":
+/*!**********************************************!*\
+  !*** ./components/interfas/footer/Footer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\interfas\\footer\\Footer.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const Footer = () => {
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("footer", {
+    className: "flex flex-wrap content-end justify-evenly shadow-md mt-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 7
+    }
+  }, __jsx("div", {
+    className: "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-2/8 text-gray-700 text-center  px-4 py-2 m-2  shadow-md mt-5 mb-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11,
+      columnNumber: 11
+    }
+  }, __jsx("h4", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl font-bold",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12,
+      columnNumber: 13
+    }
+  }, "Informaci\xF3n:"), __jsx("p", {
+    className: "text-left text-base sm:text-lg md:text-lg lg:text-lg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15,
+      columnNumber: 13
+    }
+  }, "Se podr\xE1n comunicar con nosotros:"), __jsx("div", {
+    className: "contact-info",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }
+  }, __jsx("div", {
+    className: "flex flex-wrap h-12",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 15
+    }
+  }, __jsx("svg", {
+    className: "fill text-teal-500 inline-block h-6 w-12 self-center",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 17
+    }
+  }, __jsx("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28,
+      columnNumber: 19
+    }
+  })), __jsx("span", {
+    className: "flex-1  self-center text-left text-base sm:text-base md:text-base lg:text-base",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 17
+    }
+  }, "947230083")), __jsx("div", {
+    className: "flex flex-wrap h-12",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39,
+      columnNumber: 15
+    }
+  }, __jsx("svg", {
+    className: "fill text-teal-500 inline-block h-6 w-12 self-center",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40,
+      columnNumber: 17
+    }
+  }, __jsx("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 47,
+      columnNumber: 19
+    }
+  })), __jsx("span", {
+    className: "flex-1 self-center text-left text-sm sm:text-sm md:text-sm lg:text-sm",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 54,
+      columnNumber: 17
+    }
+  }, "informaci\xF3n@transportepegaso.com"))))), __jsx("div", {
+    className: "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-2/8 text-gray-700 text-center  px-4 py-2 m-2 shadow-md mt-5 mb-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 62,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "footer-thumb",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 63,
+      columnNumber: 11
+    }
+  }, __jsx("h4", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl font-bold",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 64,
+      columnNumber: 13
+    }
+  }, "Ubicaci\xF3n:"), __jsx("img", {
+    src: "./img/servicios/mapa.png",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 67,
+      columnNumber: 13
+    }
+  }))), __jsx("div", {
+    className: "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-2/8 text-gray-700 text-center  px-4 py-2 m-2  shadow-md mt-5 mb-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 71,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "flex flex-wrap",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 72,
+      columnNumber: 11
+    }
+  }, __jsx("div", {
+    className: "flex flex-wrap",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 73,
+      columnNumber: 13
+    }
+  }, __jsx("h4", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl font-bold",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 74,
+      columnNumber: 15
+    }
+  }, "Horario de apertura:"), __jsx("div", {
+    className: "flex flex-wrap text-justify ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 77,
+      columnNumber: 15
+    }
+  }, __jsx("p", {
+    className: "font-bold w-full ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 78,
+      columnNumber: 17
+    }
+  }, "Lunes - Viernes:", __jsx("span", {
+    className: "font-normal",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 80,
+      columnNumber: 19
+    }
+  }, " 06:00 AM - 10:00 PM")), __jsx("p", {
+    className: "font-bold w-full",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 82,
+      columnNumber: 17
+    }
+  }, "S\xE1bados:", __jsx("span", {
+    className: "font-normal",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 84,
+      columnNumber: 19
+    }
+  }, " 09:00 AM - 08:00 PM")), __jsx("p", {
+    className: "font-bold w-full",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 86,
+      columnNumber: 17
+    }
+  }, "Domingo: ", __jsx("span", {
+    className: "font-normal",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 87,
+      columnNumber: 28
+    }
+  }, " Cerrado")))), __jsx("ul", {
+    className: "social-icon",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 92,
+      columnNumber: 13
+    }
+  }, __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 93,
+      columnNumber: 15
+    }
+  }, __jsx("a", {
+    href: "#",
+    className: "fa fa-facebook-square",
+    attr: "facebook icon",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 94,
+      columnNumber: 17
+    }
+  })), __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 100,
+      columnNumber: 15
+    }
+  }, __jsx("a", {
+    href: "#",
+    className: "fa fa-twitter",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 101,
+      columnNumber: 17
+    }
+  })), __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 103,
+      columnNumber: 15
+    }
+  }, __jsx("a", {
+    href: "#",
+    className: "fa fa-instagram",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 104,
+      columnNumber: 17
+    }
+  })))))), __jsx("div", {
+    className: "container mx-auto py-2 m-2 ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 110,
+      columnNumber: 7
+    }
+  }, __jsx("div", {
+    className: "copyright-text",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 111,
+      columnNumber: 9
+    }
+  }, __jsx("p", {
+    className: "text-center",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 112,
+      columnNumber: 11
+    }
+  }, "Copyright \xA9 2020 Transporte Pegaso | Design: Gustavo Maldonado"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Footer);
+
+/***/ }),
+
+/***/ "./components/interfas/header/Header.js":
+/*!**********************************************!*\
+  !*** ./components/interfas/header/Header.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_scroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-scroll */ "react-scroll");
+/* harmony import */ var react_scroll__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_scroll__WEBPACK_IMPORTED_MODULE_2__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\interfas\\header\\Header.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const Header = () => {
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
+
+  const login = () => {
+    router.push("/login");
+  };
+
+  const presionarclick = () => {
+    menu.classList.toggle("hidden");
+  };
+
+  const inicio = () => {
+    router.push("/");
+  };
+
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("nav", {
+    className: "flex items-center justify-between flex-wrap  p-6",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 7
+    }
+  }, __jsx("div", {
+    className: "flex items-center flex-shrink-0 text-white mr-6",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 9
+    }
+  }, __jsx("svg", {
+    className: "fill-current h-8 w-8 mr-2",
+    width: "54",
+    height: "54",
+    viewBox: "0 0 54 54",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 11
+    }
+  }, __jsx("path", {
+    d: "M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 29,
+      columnNumber: 13
+    }
+  })), __jsx("span", {
+    className: "font-semibold text-xl text-green-500 tracking-tight flex flex-wrap",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 31,
+      columnNumber: 11
+    }
+  }, __jsx("svg", {
+    className: "w-6 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 32,
+      columnNumber: 13
+    }
+  }, __jsx("path", {
+    strokeLinecap: "round",
+    strokeWidth: "2",
+    d: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39,
+      columnNumber: 15
+    }
+  })), "Transporte Pegasus")), __jsx("div", {
+    className: "block lg:hidden",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 48,
+      columnNumber: 9
+    }
+  }, __jsx("button", {
+    id: "boton",
+    onClick: () => presionarclick(),
+    className: "flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 49,
+      columnNumber: 11
+    }
+  }, __jsx("svg", {
+    className: "fill-current h-3 w-3",
+    viewBox: "0 0 20 20",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 54,
+      columnNumber: 13
+    }
+  }, __jsx("title", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 59,
+      columnNumber: 15
+    }
+  }, "Menu"), __jsx("path", {
+    d: "M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 60,
+      columnNumber: 15
+    }
+  })))), __jsx("div", {
+    id: "menu",
+    className: "w-full block flex-grow  lg:flex lg:items-center lg:w-auto hidden",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 64,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "text-sm lg:flex-grow justify-evenly",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68,
+      columnNumber: 11
+    }
+  }, __jsx(react_scroll__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    onClick: () => inicio(),
+    to: "inicio",
+    smooth: true,
+    duration: 1000,
+    href: "",
+    className: "block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-green-500 mr-4",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 69,
+      columnNumber: 13
+    }
+  }, "Inicio"), __jsx(react_scroll__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "quienes",
+    onClick: () => inicio(),
+    smooth: true,
+    duration: 1000,
+    href: "",
+    className: "block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-green-500 mr-4",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 79,
+      columnNumber: 13
+    }
+  }, "Quienes Somos"), __jsx(react_scroll__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "servicios",
+    smooth: true,
+    duration: 1000,
+    href: "",
+    className: "block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-green-500 mr-4",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 89,
+      columnNumber: 13
+    }
+  }, "Servicios"), __jsx(react_scroll__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "quienes",
+    smooth: true,
+    duration: 1000,
+    href: "",
+    className: "block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-green-500 mr-4",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 98,
+      columnNumber: 13
+    }
+  }, "Galer\xEDa"), __jsx("a", {
+    href: "",
+    className: "block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-green-500 mr-4",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 107,
+      columnNumber: 13
+    }
+  }, "Servicios")), __jsx("div", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 114,
+      columnNumber: 11
+    }
+  }, __jsx(react_scroll__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "",
+    onClick: () => login(),
+    href: "",
+    className: " bg-green-500 inline-block text-sm px-4 py-2 leading-none border\r rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 115,
+      columnNumber: 13
+    }
+  }, "Login")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Header);
+
+/***/ }),
+
+/***/ "./components/interfas/informacion/Informacion.js":
+/*!********************************************************!*\
+  !*** ./components/interfas/informacion/Informacion.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\interfas\\informacion\\Informacion.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+const Informacion = () => {
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("div", {
+    className: "info ",
+    id: "quienes",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4,
+      columnNumber: 7
+    }
+  }, __jsx("img", {
+    className: "",
+    src: "slider3.jpg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5,
+      columnNumber: 9
+    }
+  }), __jsx("div", {
+    className: "info-body w-5/12  content-center bg-white bg-opacity-50",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "w-full flex flex-wrap ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 11
+    }
+  }, __jsx("h2", {
+    className: "info-header flex flex-wrap w-auto text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8,
+      columnNumber: 13
+    }
+  }, "Bienvenido a"), __jsx("svg", {
+    className: "w-8 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11,
+      columnNumber: 13
+    }
+  }, __jsx("path", {
+    strokeLinecap: "round",
+    strokeWidth: "1",
+    d: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 15
+    }
+  }))), __jsx("h2", {
+    className: "text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 26,
+      columnNumber: 11
+    }
+  }, "Transporte Pegasus"), __jsx("div", {
+    className: "info-cuerpo text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 29,
+      columnNumber: 11
+    }
+  }, __jsx("p", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 30,
+      columnNumber: 13
+    }
+  }, "Somos una empresa con m\xE1s de 20 a\xF1os en el mercado responsable la cual velamos por la integridad, disponibilidad y seguridad del transporte de los productos"), __jsx("h2", {
+    className: "text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg font-bold mt-2 mb-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 13
+    }
+  }, "Misi\xF3n"), __jsx("p", {
+    className: "text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 38,
+      columnNumber: 13
+    }
+  }, "Garantizar el cuidado integral de la salud de las familias"), __jsx("h2", {
+    className: "text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg font-bold mt-2 mb-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 41,
+      columnNumber: 13
+    }
+  }, "Visi\xF3n"), __jsx("p", {
+    className: "text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44,
+      columnNumber: 13
+    }
+  }, "Ser reconocidos como la empresa que brinda los mejores planes de salud orientados a las familias")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Informacion);
+
+/***/ }),
+
+/***/ "./components/interfas/servicios/Servicios.js":
+/*!****************************************************!*\
+  !*** ./components/interfas/servicios/Servicios.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\interfas\\servicios\\Servicios.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+const Servicios = () => {
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("div", {
+    className: "flex flex flex-wrap w-full",
+    id: "servicios",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4,
+      columnNumber: 7
+    }
+  }, __jsx("div", {
+    className: " w-full  content-center",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5,
+      columnNumber: 9
+    }
+  }, __jsx("h2", {
+    className: "info-header mt-10 ml-20  flex flex-wrap w-auto content-center text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 11
+    }
+  }, "Ventajas"), __jsx("div", {
+    className: "flex flex-wrap w-full  mx-auto my-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 11
+    }
+  }, __jsx("div", {
+    className: "flex flex-wrap w-auto mx-auto mt-10 mb-10",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 13
+    }
+  }, __jsx("div", {
+    className: " h-auto w-auto items-center m-auto p-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11,
+      columnNumber: 15
+    }
+  }, __jsx("img", {
+    src: "./img/servicios/servicios-1.jpg",
+    className: "h-auto",
+    alt: "",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12,
+      columnNumber: 17
+    }
+  }), __jsx("div", {
+    className: "flex flex-wrap bg-gray-100",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18,
+      columnNumber: 17
+    }
+  }, __jsx("h3", {
+    className: "w-full mt-5 ml-5 font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 19
+    }
+  }, "Entrega Personalizada")))), __jsx("div", {
+    className: "flex flex-wrap w-auto mx-auto my-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 26,
+      columnNumber: 13
+    }
+  }, __jsx("div", {
+    className: " h-auto w-auto items-center",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 27,
+      columnNumber: 15
+    }
+  }, __jsx("img", {
+    src: "./img/servicios/servicios-2.jpg",
+    className: "h-auto",
+    alt: "",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28,
+      columnNumber: 17
+    }
+  }), __jsx("div", {
+    className: "flex flex-wrap bg-gray-100",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 17
+    }
+  }, __jsx("h3", {
+    className: "w-full mt-5 ml-5 font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 19
+    }
+  }, "Descuento por recomendaci\xF3n")))), __jsx("div", {
+    className: "flex flex-wrap   w-auto mx-auto my-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 42,
+      columnNumber: 13
+    }
+  }, __jsx("div", {
+    className: " h-auto w-auto items-center font-bold text-justify",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 43,
+      columnNumber: 15
+    }
+  }, __jsx("img", {
+    src: "./img/servicios/servicios-3.jpg",
+    className: "h-auto",
+    alt: "",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44,
+      columnNumber: 17
+    }
+  }), __jsx("div", {
+    className: "flex flex-wrap bg-gray-100",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 50,
+      columnNumber: 17
+    }
+  }, __jsx("h3", {
+    className: "w-full mt-5 ml-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 51,
+      columnNumber: 19
+    }
+  }, "Verificaci\xF3n del producto"))))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Servicios);
+
+/***/ }),
+
+/***/ "./components/layout.js":
+/*!******************************!*\
+  !*** ./components/layout.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/head */ "next/head");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Sidebar */ "./components/Sidebar.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./header */ "./components/header.js");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _interfas_header_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interfas/header/Header */ "./components/interfas/header/Header.js");
+/* harmony import */ var _interfas_footer_Footer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interfas/footer/Footer */ "./components/interfas/footer/Footer.js");
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\components\\layout.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+
+
+
+const LayoutContent = ({
+  children
+}) => {
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_4__["useRouter"])();
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13,
+      columnNumber: 7
+    }
+  }, __jsx("title", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14,
+      columnNumber: 9
+    }
+  }, "Transporte Pegaso"), __jsx("link", {
+    rel: "stylesheet",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
+    integrity: "sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=",
+    crossOrigin: "anonymous",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15,
+      columnNumber: 9
+    }
+  }), __jsx("link", {
+    href: "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css",
+    rel: "stylesheet",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 9
+    }
+  }), __jsx("link", {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25,
+      columnNumber: 9
+    }
+  })), router.pathname === "/login" || router.pathname === "/nuevacuenta" || router.pathname === "/" ? __jsx(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "min-h-screen flex flex-col ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 11
+    }
+  }, __jsx(_interfas_header_Header__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 36,
+      columnNumber: 13
+    }
+  }), __jsx("div", {
+    className: "flex flex-1 flex-wrap shadow-md justify-center bg-gradient-to-r ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37,
+      columnNumber: 13
+    }
+  }, children), __jsx(_interfas_footer_Footer__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40,
+      columnNumber: 13
+    }
+  }))) : __jsx("div", {
+    className: "bg-gray-200 min-h-screen",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "sm:flex min-h-screen",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 45,
+      columnNumber: 11
+    }
+  }, __jsx(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 46,
+      columnNumber: 13
+    }
+  }), __jsx("main", {
+    className: "sm:w-2/3 xl:w-4/5 sm:min-h-screen p-5",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 48,
+      columnNumber: 13
+    }
+  }, __jsx(_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 49,
+      columnNumber: 15
+    }
+  }), children))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LayoutContent);
 
 /***/ }),
 
@@ -2430,179 +3208,353 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.js");
-/* harmony import */ var _components_Cliente__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Cliente */ "./components/Cliente.js");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @apollo/client */ "@apollo/client");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_5__);
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\pages\\index.js";
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout */ "./components/layout.js");
+/* harmony import */ var _components_interfas_informacion_Informacion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/interfas/informacion/Informacion */ "./components/interfas/informacion/Informacion.js");
+/* harmony import */ var _components_interfas_servicios_Servicios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/interfas/servicios/Servicios */ "./components/interfas/servicios/Servicios.js");
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\pages\\index.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
-
-const OBTENER_CLIENTES_USUARIO = _apollo_client__WEBPACK_IMPORTED_MODULE_3__["gql"]`
-    query obtenerClientesVendedor {
-        obtenerClientesVendedor {
-            id
-            nombre
-            apellido
-            empresa
-            email
-        }
-    }
-`;
-
 const Index = () => {
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_4__["useRouter"])(); // Consulta de Apollo
-
-  const {
-    data,
-    loading,
-    error
-  } = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(OBTENER_CLIENTES_USUARIO); // console.log(data)
-  // console.log(loading)
-  // console.log(error)
-
-  if (loading) return 'Cargando....';
-
-  if (!data.obtenerClientesVendedor) {
-    return router.push('/login');
-  }
-
-  return __jsx("div", {
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(_components_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 37,
-      columnNumber: 5
-    }
-  }, __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 38,
+      lineNumber: 8,
       columnNumber: 7
     }
-  }, __jsx("h1", {
-    className: "text-2xl text-gray-800 font-light",
+  }, __jsx("div", {
+    className: "carousel w-full h-full",
+    id: "inicio",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 39,
+      lineNumber: 9,
+      columnNumber: 9
+    }
+  }, __jsx("div", {
+    className: "carousel-inner w-full h-full",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10,
       columnNumber: 11
     }
-  }, "Clientes"), __jsx(next_link__WEBPACK_IMPORTED_MODULE_5___default.a, {
-    href: "/nuevocliente",
+  }, __jsx("input", {
+    className: "carousel-open",
+    type: "radio",
+    id: "carousel-1",
+    name: "carousel",
+    "aria-hidden": "true",
+    hidden: true,
+    defaultChecked: true,
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 40,
-      columnNumber: 11
-    }
-  }, __jsx("a", {
-    className: "bg-blue-800 py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-800 mb-3 uppercase font-bold w-full lg:w-auto text-center",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 41,
+      lineNumber: 11,
       columnNumber: 13
     }
-  }, "Nuevo Cliente")), __jsx("div", {
-    className: "overflow-x-scroll",
+  }), __jsx("div", {
+    className: "carousel-item w-full h-full",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 13
+    }
+  }, __jsx("img", {
+    className: "w-full h-full",
+    src: "slider1.jpg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 15
+    }
+  }), __jsx("div", {
+    className: "carousel-body content-center ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23,
+      columnNumber: 15
+    }
+  }, __jsx("h3", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 24,
+      columnNumber: 17
+    }
+  }), __jsx("h1", {
+    className: "text-3xl sm:text-3xl md:text-3xl lg:text-6xl xl:text-6xl",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25,
+      columnNumber: 17
+    }
+  }, "Transporte de Carga"), __jsx("button", {
+    className: " w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28,
+      columnNumber: 17
+    }
+  }, "Contactanos"))), __jsx("input", {
+    className: "carousel-open",
+    type: "radio",
+    id: "carousel-2",
+    name: "carousel",
+    "aria-hidden": "true",
+    hidden: true,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 13
+    }
+  }), __jsx("div", {
+    className: "carousel-item w-full h-full",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 43,
+      columnNumber: 13
+    }
+  }, __jsx("img", {
+    className: "w-full h-full",
+    src: "slider2.jpg",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 44,
-      columnNumber: 9
+      columnNumber: 15
     }
-  }, __jsx("table", {
-    className: "table-auto shadow-md mt-10 w-full w-lg",
+  }), __jsx("div", {
+    className: "carousel-body content-center ",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 45,
-      columnNumber: 11
+      columnNumber: 15
     }
-  }, __jsx("thead", {
-    className: "bg-gray-800",
+  }, __jsx("h3", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 46,
-      columnNumber: 13
+      columnNumber: 17
     }
-  }, __jsx("tr", {
-    className: "text-white",
+  }), __jsx("h1", {
+    className: "text-xl sm:text-xl md:text-3xl lg:text-5xl xl:text-5xl",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 47,
-      columnNumber: 15
+      columnNumber: 17
     }
-  }, __jsx("th", {
-    className: "w-1/5 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 48,
-      columnNumber: 19
-    }
-  }, "Nombre"), __jsx("th", {
-    className: "w-1/5 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 49,
-      columnNumber: 19
-    }
-  }, "Empresa"), __jsx("th", {
-    className: "w-1/5 py-2",
+  }, "Confiabilidad en cada entrega"), __jsx("button", {
+    className: " w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 50,
-      columnNumber: 19
+      columnNumber: 17
     }
-  }, "Email"), __jsx("th", {
-    className: "w-1/5 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 51,
-      columnNumber: 19
-    }
-  }, "Eliminar"), __jsx("th", {
-    className: "w-1/5 py-2",
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 52,
-      columnNumber: 19
-    }
-  }, "Editar"))), __jsx("tbody", {
-    className: "bg-white",
+  }, "ACERCA DE NOSOTROS"))), __jsx("input", {
+    className: "carousel-open",
+    type: "radio",
+    id: "carousel-3",
+    name: "carousel",
+    "aria-hidden": "true",
+    hidden: true,
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 56,
       columnNumber: 13
     }
-  }, data.obtenerClientesVendedor.map(cliente => __jsx(_components_Cliente__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    key: cliente.id,
-    cliente: cliente,
+  }), __jsx("div", {
+    className: "carousel-item w-full h-full",
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 58,
+      lineNumber: 65,
+      columnNumber: 13
+    }
+  }, __jsx("img", {
+    className: "w-full h-full",
+    src: "slider4.jpg",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 66,
+      columnNumber: 15
+    }
+  }), __jsx("div", {
+    className: "carousel-body content-center ",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 67,
+      columnNumber: 15
+    }
+  }, __jsx("h3", {
+    className: "text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68,
       columnNumber: 17
     }
-  })))))));
+  }), __jsx("h1", {
+    className: "text-xl sm:text-xl md:text-3xl lg:text-5xl xl:text-5xl",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 69,
+      columnNumber: 17
+    }
+  }, "VERIFICACI\xD3N DEL PRODUCTO"), __jsx("button", {
+    className: " w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 72,
+      columnNumber: 17
+    }
+  }, "INFORMACI\xD3N"))), __jsx("label", {
+    htmlFor: "carousel-3",
+    className: "carousel-control prev control-1",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 78,
+      columnNumber: 13
+    }
+  }, "\u2039"), __jsx("label", {
+    htmlFor: "carousel-2",
+    className: "carousel-control next control-1",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 84,
+      columnNumber: 13
+    }
+  }, "\u203A"), __jsx("label", {
+    htmlFor: "carousel-1",
+    className: "carousel-control prev control-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 90,
+      columnNumber: 13
+    }
+  }, "\u2039"), __jsx("label", {
+    htmlFor: "carousel-3",
+    className: "carousel-control next control-2",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 96,
+      columnNumber: 13
+    }
+  }, "\u203A"), __jsx("label", {
+    htmlFor: "carousel-2",
+    className: "carousel-control prev control-3",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 102,
+      columnNumber: 13
+    }
+  }, "\u2039"), __jsx("label", {
+    htmlFor: "carousel-1",
+    className: "carousel-control next control-3",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 108,
+      columnNumber: 13
+    }
+  }, "\u203A"), __jsx("ol", {
+    className: "carousel-indicators",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 114,
+      columnNumber: 13
+    }
+  }, __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 115,
+      columnNumber: 15
+    }
+  }, __jsx("label", {
+    htmlFor: "carousel-1",
+    className: "carousel-bullet",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 116,
+      columnNumber: 17
+    }
+  }, "\u2022")), __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 120,
+      columnNumber: 15
+    }
+  }, __jsx("label", {
+    htmlFor: "carousel-2",
+    className: "carousel-bullet",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 121,
+      columnNumber: 17
+    }
+  }, "\u2022")), __jsx("li", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 125,
+      columnNumber: 15
+    }
+  }, __jsx("label", {
+    htmlFor: "carousel-3",
+    className: "carousel-bullet",
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 126,
+      columnNumber: 17
+    }
+  }, "\u2022"))))), __jsx(_components_interfas_informacion_Informacion__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 133,
+      columnNumber: 9
+    }
+  }), __jsx(_components_interfas_servicios_Servicios__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 134,
+      columnNumber: 9
+    }
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
@@ -2616,7 +3568,7 @@ const Index = () => {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Descargas\crmcliente\crmcliente\pages\index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! D:\Descargas\Crmcliente\Crmcliente\pages\index.js */"./pages/index.js");
 
 
 /***/ }),
@@ -2698,14 +3650,14 @@ module.exports = require("react-is");
 
 /***/ }),
 
-/***/ "sweetalert2":
-/*!******************************!*\
-  !*** external "sweetalert2" ***!
-  \******************************/
+/***/ "react-scroll":
+/*!*******************************!*\
+  !*** external "react-scroll" ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("sweetalert2");
+module.exports = require("react-scroll");
 
 /***/ }),
 

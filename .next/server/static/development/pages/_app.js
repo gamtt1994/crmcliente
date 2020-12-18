@@ -124,9 +124,7 @@ const httpLink = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_0__["createHttpL
 const authLink = Object(apollo_link_context__WEBPACK_IMPORTED_MODULE_2__["setContext"])((_, {
   headers
 }) => {
-  // Leer el storage almacenado
-  const token = localStorage.getItem("token"); // console.log(token);
-
+  const token = localStorage.getItem("token");
   return {
     headers: _objectSpread({}, headers, {
       authorization: token ? `Bearer ${token}` : ""
@@ -219,7 +217,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PedidoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PedidoContext */ "./context/pedidos/PedidoContext.js");
 /* harmony import */ var _PedidoReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PedidoReducer */ "./context/pedidos/PedidoReducer.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../types */ "./types/index.js");
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\context\\pedidos\\PedidoState.js";
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\context\\pedidos\\PedidoState.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -236,7 +234,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 const PedidoState = ({
   children
 }) => {
-  // State de Pedidos
   const initialState = {
     cliente: {},
     productos: [],
@@ -245,22 +242,19 @@ const PedidoState = ({
   const {
     0: state,
     1: dispatch
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_PedidoReducer__WEBPACK_IMPORTED_MODULE_2__["default"], initialState); // Modifica el Cliente
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_PedidoReducer__WEBPACK_IMPORTED_MODULE_2__["default"], initialState);
 
   const agregarCliente = cliente => {
-    // console.log(cliente);
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_3__["SELECCIONAR_CLIENTE"],
       payload: cliente
     });
-  }; // Modifica los productos
-
+  };
 
   const agregarProducto = productosSeleccionados => {
     let nuevoState;
 
     if (state.productos.length > 0) {
-      // Tomar del segundo arreglo, una copia para asignarlo al primero
       nuevoState = productosSeleccionados.map(producto => {
         const nuevoObjeto = state.productos.find(productoState => productoState.id === producto.id);
         return _objectSpread({}, producto, {}, nuevoObjeto);
@@ -273,8 +267,7 @@ const PedidoState = ({
       type: _types__WEBPACK_IMPORTED_MODULE_3__["SELECCIONAR_PRODUCTO"],
       payload: nuevoState
     });
-  }; // Modifica las cantidades de los productos
-
+  };
 
   const cantidadProductos = nuevoProducto => {
     dispatch({
@@ -302,8 +295,8 @@ const PedidoState = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
-      columnNumber: 9
+      lineNumber: 61,
+      columnNumber: 5
     }
   }, " ", children);
 };
@@ -327,11 +320,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/apollo */ "./config/apollo.js");
 /* harmony import */ var _context_pedidos_PedidoState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/pedidos/PedidoState */ "./context/pedidos/PedidoState.js");
-var _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\pages\\_app.js";
+/* harmony import */ var _styles_globals_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/globals.css */ "./styles/globals.css");
+/* harmony import */ var _styles_globals_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_styles_globals_css__WEBPACK_IMPORTED_MODULE_4__);
+var _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\pages\\_app.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -346,27 +342,38 @@ const MyApp = ({
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7,
-      columnNumber: 9
+      lineNumber: 8,
+      columnNumber: 5
     }
   }, __jsx(_context_pedidos_PedidoState__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 13
+      lineNumber: 9,
+      columnNumber: 7
     }
   }, __jsx(Component, _extends({}, pageProps, {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
-      columnNumber: 17
+      lineNumber: 10,
+      columnNumber: 9
     }
   }))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (MyApp);
+
+/***/ }),
+
+/***/ "./styles/globals.css":
+/*!****************************!*\
+  !*** ./styles/globals.css ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 

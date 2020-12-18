@@ -29,9 +29,7 @@ var httpLink = Object(_apollo_client__WEBPACK_IMPORTED_MODULE_1__["createHttpLin
 });
 var authLink = Object(apollo_link_context__WEBPACK_IMPORTED_MODULE_3__["setContext"])(function (_, _ref) {
   var headers = _ref.headers;
-  // Leer el storage almacenado
-  var token = localStorage.getItem("token"); // console.log(token);
-
+  var token = localStorage.getItem("token");
   return {
     headers: _objectSpread({}, headers, {
       authorization: token ? "Bearer ".concat(token) : ""
@@ -133,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _this = undefined,
-    _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\context\\pedidos\\PedidoState.js";
+    _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\context\\pedidos\\PedidoState.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
@@ -148,7 +146,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var PedidoState = function PedidoState(_ref) {
   var children = _ref.children;
-  // State de Pedidos
   var initialState = {
     cliente: {},
     productos: [],
@@ -157,23 +154,19 @@ var PedidoState = function PedidoState(_ref) {
 
   var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(_PedidoReducer__WEBPACK_IMPORTED_MODULE_3__["default"], initialState),
       state = _useReducer[0],
-      dispatch = _useReducer[1]; // Modifica el Cliente
-
+      dispatch = _useReducer[1];
 
   var agregarCliente = function agregarCliente(cliente) {
-    // console.log(cliente);
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_4__["SELECCIONAR_CLIENTE"],
       payload: cliente
     });
-  }; // Modifica los productos
-
+  };
 
   var agregarProducto = function agregarProducto(productosSeleccionados) {
     var nuevoState;
 
     if (state.productos.length > 0) {
-      // Tomar del segundo arreglo, una copia para asignarlo al primero
       nuevoState = productosSeleccionados.map(function (producto) {
         var nuevoObjeto = state.productos.find(function (productoState) {
           return productoState.id === producto.id;
@@ -188,8 +181,7 @@ var PedidoState = function PedidoState(_ref) {
       type: _types__WEBPACK_IMPORTED_MODULE_4__["SELECCIONAR_PRODUCTO"],
       payload: nuevoState
     });
-  }; // Modifica las cantidades de los productos
-
+  };
 
   var cantidadProductos = function cantidadProductos(nuevoProducto) {
     dispatch({
@@ -217,8 +209,8 @@ var PedidoState = function PedidoState(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
-      columnNumber: 9
+      lineNumber: 61,
+      columnNumber: 5
     }
   }, " ", children);
 };
@@ -9619,6 +9611,121 @@ function stripSymbols(data) {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./styles/globals.css":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-5-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./styles/globals.css ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
+// Module
+exports.push([module.i, "@tailwind base;\n\n@tailwind components;\n\n@tailwind utilities;\n\nhtml,\nbody {\n  padding: 0;\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,\n    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\n* {\n  box-sizing: border-box;\n}\n\n.carousel {\n  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);\n  height: 100%;\n}\n\n.carousel-inner {\n  position: relative;\n  overflow: hidden;\n}\n\n.carousel-open:checked + .carousel-item {\n  position: static;\n  opacity: 100;\n}\n\n.carousel-item {\n  position: absolute;\n  opacity: 0;\n  transition: opacity 0.6s ease-out;\n}\n\n.carousel-body {\n  display: flex;\n  flex-wrap: wrap;\n  position: relative;\n  width: 50%;\n  height: 100%;\n  margin: auto;\n}\n\n.carousel-item img {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n.carousel h1 {\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: 500;\n  background-color: #aaaaaa;\n}\n\n.carousel h3 {\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: 1000;\n  margin: 10%;\n}\n\n.carousel button {\n  text-align: center;\n  color: white;\n  background: #a5c422;\n  border: 0;\n  border-radius: 10px;\n  color: #ffffff;\n  font-size: inherit;\n  font-weight: 500;\n  padding: 14px 20px;\n  transition: transform 0.1s ease-in;\n  transform: translateX(0);\n  margin-left: 50%;\n  transform: translateX(-50%);\n  width: 100%;\n  margin-top: 10%;\n  margin-bottom: 25%;\n}\n\n.carousel button:hover {\n  color: #333;\n  background-color: #e6e6e6;\n  border-color: #8c8c8c;\n}\n\n.carousel-control {\n  background: rgba(0, 0, 0, 0.28);\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  display: none;\n  font-size: 40px;\n  height: 40px;\n  line-height: 35px;\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translate(0, -50%);\n  cursor: pointer;\n  transform: translate(0, -50%);\n  text-align: center;\n  width: 40px;\n  z-index: 10;\n}\n\n.carousel-control.prev {\n  left: 2%;\n}\n\n.carousel-control.next {\n  right: 2%;\n}\n\n.carousel-control:hover {\n  background: rgba(0, 0, 0, 0.8);\n  color: #aaaaaa;\n}\n\n#carousel-1:checked ~ .control-1,\n#carousel-2:checked ~ .control-2,\n#carousel-3:checked ~ .control-3 {\n  display: block;\n}\n\n.carousel-indicators {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  bottom: 2%;\n  left: 0;\n  right: 0;\n  text-align: center;\n  z-index: 10;\n}\n\n.carousel-indicators li {\n  display: inline-block;\n  margin: 0 5px;\n}\n\n.carousel-bullet {\n  color: #fff;\n  cursor: pointer;\n  display: block;\n  font-size: 35px;\n}\n\n.carousel-bullet:hover {\n  color: #aaaaaa;\n}\n\n#carousel-1:checked\n  ~ .control-1\n  ~ .carousel-indicators\n  li:nth-child(1)\n  .carousel-bullet,\n#carousel-2:checked\n  ~ .control-2\n  ~ .carousel-indicators\n  li:nth-child(2)\n  .carousel-bullet,\n#carousel-3:checked\n  ~ .control-3\n  ~ .carousel-indicators\n  li:nth-child(3)\n  .carousel-bullet {\n  color: #428bca;\n}\n\n#title {\n  width: 100%;\n  position: absolute;\n  padding: 0px;\n  margin: 0px auto;\n  text-align: center;\n  font-size: 27px;\n  color: rgba(255, 255, 255, 1);\n  font-family: \"Open Sans\", sans-serif;\n  z-index: 9999;\n  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33),\n    -1px 0px 2px rgba(255, 255, 255, 0);\n}\n\n.info {\n  position: relative;\n  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);\n  width: 100%;\n  height: 100%;\n}\n\n.info img {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n.info-body {\n  margin: 15%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["D:/Descargas/Crmcliente/Crmcliente/styles/globals.css"],"names":[],"mappings":"AAAA,cAAc;;AAEd,oBAAoB;;AAEpB,mBAAmB;;AAEnB;;EAEE,UAAU;EACV,SAAS;EACT;wEACsE;AACxE;;AAEA;EACE,cAAc;EACd,qBAAqB;AACvB;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,2CAA2C;EAC3C,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,UAAU;EAEV,iCAAiC;AACnC;;AAEA;EACE,aAAa;EACb,eAAe;EACf,kBAAkB;EAClB,UAAU;EACV,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,WAAW;EACX,YAAY;AACd;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,YAAY;EACZ,gBAAgB;EAChB,yBAAyB;AAC3B;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,YAAY;EACZ,iBAAiB;EACjB,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,mBAAmB;EACnB,SAAS;EACT,mBAAmB;EACnB,cAAc;EACd,kBAAkB;EAClB,gBAAgB;EAChB,kBAAkB;EAClB,kCAAkC;EAClC,wBAAwB;EACxB,gBAAgB;EAChB,2BAA2B;EAC3B,WAAW;EACX,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,yBAAyB;EACzB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,kBAAkB;EAClB,WAAW;EACX,eAAe;EACf,aAAa;EACb,eAAe;EACf,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;EAClB,QAAQ;EACR,qCAAqC;EACrC,eAAe;EAEf,6BAA6B;EAC7B,kBAAkB;EAClB,WAAW;EACX,WAAW;AACb;;AAEA;EACE,QAAQ;AACV;;AAEA;EACE,SAAS;AACX;;AAEA;EACE,8BAA8B;EAC9B,cAAc;AAChB;;AAEA;;;EAGE,cAAc;AAChB;;AAEA;EACE,gBAAgB;EAChB,SAAS;EACT,UAAU;EACV,kBAAkB;EAClB,UAAU;EACV,OAAO;EACP,QAAQ;EACR,kBAAkB;EAClB,WAAW;AACb;;AAEA;EACE,qBAAqB;EACrB,aAAa;AACf;;AAEA;EACE,WAAW;EACX,eAAe;EACf,cAAc;EACd,eAAe;AACjB;;AAEA;EACE,cAAc;AAChB;;AAEA;;;;;;;;;;;;;;;EAeE,cAAc;AAChB;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,YAAY;EACZ,gBAAgB;EAChB,kBAAkB;EAClB,eAAe;EACf,6BAA6B;EAC7B,oCAAoC;EACpC,aAAa;EACb;uCACqC;AACvC;;AAEA;EACE,kBAAkB;EAClB,2CAA2C;EAC3C,WAAW;EACX,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,WAAW;EACX,YAAY;AACd;;AAEA;EACE,WAAW;EACX,YAAY;AACd","file":"globals.css","sourcesContent":["@tailwind base;\n\n@tailwind components;\n\n@tailwind utilities;\n\nhtml,\nbody {\n  padding: 0;\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,\n    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\n* {\n  box-sizing: border-box;\n}\n\n.carousel {\n  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);\n  height: 100%;\n}\n\n.carousel-inner {\n  position: relative;\n  overflow: hidden;\n}\n\n.carousel-open:checked + .carousel-item {\n  position: static;\n  opacity: 100;\n}\n\n.carousel-item {\n  position: absolute;\n  opacity: 0;\n  -webkit-transition: opacity 0.6s ease-out;\n  transition: opacity 0.6s ease-out;\n}\n\n.carousel-body {\n  display: flex;\n  flex-wrap: wrap;\n  position: relative;\n  width: 50%;\n  height: 100%;\n  margin: auto;\n}\n\n.carousel-item img {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n.carousel h1 {\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: 500;\n  background-color: #aaaaaa;\n}\n\n.carousel h3 {\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: 1000;\n  margin: 10%;\n}\n\n.carousel button {\n  text-align: center;\n  color: white;\n  background: #a5c422;\n  border: 0;\n  border-radius: 10px;\n  color: #ffffff;\n  font-size: inherit;\n  font-weight: 500;\n  padding: 14px 20px;\n  transition: transform 0.1s ease-in;\n  transform: translateX(0);\n  margin-left: 50%;\n  transform: translateX(-50%);\n  width: 100%;\n  margin-top: 10%;\n  margin-bottom: 25%;\n}\n\n.carousel button:hover {\n  color: #333;\n  background-color: #e6e6e6;\n  border-color: #8c8c8c;\n}\n\n.carousel-control {\n  background: rgba(0, 0, 0, 0.28);\n  border-radius: 50%;\n  color: #fff;\n  cursor: pointer;\n  display: none;\n  font-size: 40px;\n  height: 40px;\n  line-height: 35px;\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translate(0, -50%);\n  cursor: pointer;\n  -ms-transform: translate(0, -50%);\n  transform: translate(0, -50%);\n  text-align: center;\n  width: 40px;\n  z-index: 10;\n}\n\n.carousel-control.prev {\n  left: 2%;\n}\n\n.carousel-control.next {\n  right: 2%;\n}\n\n.carousel-control:hover {\n  background: rgba(0, 0, 0, 0.8);\n  color: #aaaaaa;\n}\n\n#carousel-1:checked ~ .control-1,\n#carousel-2:checked ~ .control-2,\n#carousel-3:checked ~ .control-3 {\n  display: block;\n}\n\n.carousel-indicators {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  bottom: 2%;\n  left: 0;\n  right: 0;\n  text-align: center;\n  z-index: 10;\n}\n\n.carousel-indicators li {\n  display: inline-block;\n  margin: 0 5px;\n}\n\n.carousel-bullet {\n  color: #fff;\n  cursor: pointer;\n  display: block;\n  font-size: 35px;\n}\n\n.carousel-bullet:hover {\n  color: #aaaaaa;\n}\n\n#carousel-1:checked\n  ~ .control-1\n  ~ .carousel-indicators\n  li:nth-child(1)\n  .carousel-bullet,\n#carousel-2:checked\n  ~ .control-2\n  ~ .carousel-indicators\n  li:nth-child(2)\n  .carousel-bullet,\n#carousel-3:checked\n  ~ .control-3\n  ~ .carousel-indicators\n  li:nth-child(3)\n  .carousel-bullet {\n  color: #428bca;\n}\n\n#title {\n  width: 100%;\n  position: absolute;\n  padding: 0px;\n  margin: 0px auto;\n  text-align: center;\n  font-size: 27px;\n  color: rgba(255, 255, 255, 1);\n  font-family: \"Open Sans\", sans-serif;\n  z-index: 9999;\n  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33),\n    -1px 0px 2px rgba(255, 255, 255, 0);\n}\n\n.info {\n  position: relative;\n  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);\n  width: 100%;\n  height: 100%;\n}\n\n.info img {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n.info-body {\n  margin: 15%;\n  height: 100%;\n}\n"]}]);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], "{").concat(content, "}");
+      }
+
+      return content;
+    }).join('');
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === 'string') {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, '']];
+    }
+
+    var alreadyImportedModules = {};
+
+    for (var i = 0; i < this.length; i++) {
+      // eslint-disable-next-line prefer-destructuring
+      var id = this[i][0];
+
+      if (id != null) {
+        alreadyImportedModules[id] = true;
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = modules[_i]; // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      // when a module is imported multiple times with different media queries.
+      // I hope this will never occur (Hey this way we have smaller bundles)
+
+      if (item[0] == null || !alreadyImportedModules[item[0]]) {
+        if (mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if (mediaQuery) {
+          item[2] = "(".concat(item[2], ") and (").concat(mediaQuery, ")");
+        }
+
+        list.push(item);
+      }
+    }
+  };
+
+  return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
+
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot).concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
+
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
+function toComment(sourceMap) {
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+  return "/*# ".concat(data, " */");
+}
+
+/***/ }),
+
 /***/ "./node_modules/fast-json-stable-stringify/index.js":
 /*!**********************************************************!*\
   !*** ./node_modules/fast-json-stable-stringify/index.js ***!
@@ -17358,6 +17465,299 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stylesInDom = {};
+
+var isOldIE = function isOldIE() {
+  var memo;
+  return function memorize() {
+    if (typeof memo === 'undefined') {
+      // Test for IE <= 9 as proposed by Browserhacks
+      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+      // Tests for existence of standard globals is to allow style-loader
+      // to operate correctly into non-standard environments
+      // @see https://github.com/webpack-contrib/style-loader/issues/177
+      memo = Boolean(window && document && document.all && !window.atob);
+    }
+
+    return memo;
+  };
+}();
+
+var getTarget = function getTarget() {
+  var memo = {};
+  return function memorize(target) {
+    if (typeof memo[target] === 'undefined') {
+      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
+
+      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+        try {
+          // This will throw an exception if access to iframe is blocked
+          // due to cross-origin restrictions
+          styleTarget = styleTarget.contentDocument.head;
+        } catch (e) {
+          // istanbul ignore next
+          styleTarget = null;
+        }
+      }
+
+      memo[target] = styleTarget;
+    }
+
+    return memo[target];
+  };
+}();
+
+function listToStyles(list, options) {
+  var styles = [];
+  var newStyles = {};
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var css = item[1];
+    var media = item[2];
+    var sourceMap = item[3];
+    var part = {
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    };
+
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = {
+        id: id,
+        parts: [part]
+      });
+    } else {
+      newStyles[id].parts.push(part);
+    }
+  }
+
+  return styles;
+}
+
+function addStylesToDom(styles, options) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i];
+    var domStyle = stylesInDom[item.id];
+    var j = 0;
+
+    if (domStyle) {
+      domStyle.refs++;
+
+      for (; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j]);
+      }
+
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j], options));
+      }
+    } else {
+      var parts = [];
+
+      for (; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j], options));
+      }
+
+      stylesInDom[item.id] = {
+        id: item.id,
+        refs: 1,
+        parts: parts
+      };
+    }
+  }
+}
+
+function insertStyleElement(options) {
+  var style = document.createElement('style');
+
+  if (typeof options.attributes.nonce === 'undefined') {
+    var nonce =  true ? __webpack_require__.nc : undefined;
+
+    if (nonce) {
+      options.attributes.nonce = nonce;
+    }
+  }
+
+  Object.keys(options.attributes).forEach(function (key) {
+    style.setAttribute(key, options.attributes[key]);
+  });
+
+  if (typeof options.insert === 'function') {
+    options.insert(style);
+  } else {
+    var target = getTarget(options.insert || 'head');
+
+    if (!target) {
+      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+    }
+
+    target.appendChild(style);
+  }
+
+  return style;
+}
+
+function removeStyleElement(style) {
+  // istanbul ignore if
+  if (style.parentNode === null) {
+    return false;
+  }
+
+  style.parentNode.removeChild(style);
+}
+/* istanbul ignore next  */
+
+
+var replaceText = function replaceText() {
+  var textStore = [];
+  return function replace(index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
+}();
+
+function applyToSingletonTag(style, index, remove, obj) {
+  var css = remove ? '' : obj.css; // For old IE
+
+  /* istanbul ignore if  */
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = style.childNodes;
+
+    if (childNodes[index]) {
+      style.removeChild(childNodes[index]);
+    }
+
+    if (childNodes.length) {
+      style.insertBefore(cssNode, childNodes[index]);
+    } else {
+      style.appendChild(cssNode);
+    }
+  }
+}
+
+function applyToTag(style, options, obj) {
+  var css = obj.css;
+  var media = obj.media;
+  var sourceMap = obj.sourceMap;
+
+  if (media) {
+    style.setAttribute('media', media);
+  }
+
+  if (sourceMap && btoa) {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    while (style.firstChild) {
+      style.removeChild(style.firstChild);
+    }
+
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var singleton = null;
+var singletonCounter = 0;
+
+function addStyle(obj, options) {
+  var style;
+  var update;
+  var remove;
+
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    style = singleton || (singleton = insertStyleElement(options));
+    update = applyToSingletonTag.bind(null, style, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+  } else {
+    style = insertStyleElement(options);
+    update = applyToTag.bind(null, style, options);
+
+    remove = function remove() {
+      removeStyleElement(style);
+    };
+  }
+
+  update(obj);
+  return function updateStyle(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+        return;
+      }
+
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
+}
+
+module.exports = function (list, options) {
+  options = options || {};
+  options.attributes = typeof options.attributes === 'object' ? options.attributes : {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
+
+  if (!options.singleton && typeof options.singleton !== 'boolean') {
+    options.singleton = isOldIE();
+  }
+
+  var styles = listToStyles(list, options);
+  addStylesToDom(styles, options);
+  return function update(newList) {
+    var mayRemove = [];
+
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i];
+      var domStyle = stylesInDom[item.id];
+
+      if (domStyle) {
+        domStyle.refs--;
+        mayRemove.push(domStyle);
+      }
+    }
+
+    if (newList) {
+      var newStyles = listToStyles(newList, options);
+      addStylesToDom(newStyles, options);
+    }
+
+    for (var _i = 0; _i < mayRemove.length; _i++) {
+      var _domStyle = mayRemove[_i];
+
+      if (_domStyle.refs === 0) {
+        for (var j = 0; j < _domStyle.parts.length; j++) {
+          _domStyle.parts[j]();
+        }
+
+        delete stylesInDom[_domStyle.id];
+      }
+    }
+  };
+};
+
+/***/ }),
+
 /***/ "./node_modules/symbol-observable/es/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/symbol-observable/es/index.js ***!
@@ -18493,13 +18893,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/index.js");
 /* harmony import */ var _config_apollo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/apollo */ "./config/apollo.js");
 /* harmony import */ var _context_pedidos_PedidoState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../context/pedidos/PedidoState */ "./context/pedidos/PedidoState.js");
+/* harmony import */ var _styles_globals_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/globals.css */ "./styles/globals.css");
+/* harmony import */ var _styles_globals_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_styles_globals_css__WEBPACK_IMPORTED_MODULE_5__);
 
 
 var _this = undefined,
-    _jsxFileName = "D:\\Descargas\\crmcliente\\crmcliente\\pages\\_app.js";
+    _jsxFileName = "D:\\Descargas\\Crmcliente\\Crmcliente\\pages\\_app.js";
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
 
 
 
@@ -18512,27 +18915,88 @@ var MyApp = function MyApp(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7,
-      columnNumber: 9
+      lineNumber: 8,
+      columnNumber: 5
     }
   }, __jsx(_context_pedidos_PedidoState__WEBPACK_IMPORTED_MODULE_4__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 13
+      lineNumber: 9,
+      columnNumber: 7
     }
   }, __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
-      columnNumber: 17
+      lineNumber: 10,
+      columnNumber: 9
     }
   }))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (MyApp);
+
+/***/ }),
+
+/***/ "./styles/globals.css":
+/*!****************************!*\
+  !*** ./styles/globals.css ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-5-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./globals.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./styles/globals.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = function(element){// These elements should always exist. If they do not,
+// this code should fail.
+var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
+// Each style tag should be placed right before our
+// anchor. By inserting before and not after, we do not
+// need to track the last inserted element.
+parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
+//
+// After styles are injected, we need to remove the
+// <style> tags that set `body { display: none; }`.
+//
+// We use `requestAnimationFrame` as a way to defer
+// this operation since there may be multiple style
+// tags.
+;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+if (true) {
+  if (!content.locals) {
+    module.hot.accept(
+      /*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-5-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./globals.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./styles/globals.css",
+      function () {
+        var newContent = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-5-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./globals.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./styles/globals.css");
+
+        if (typeof newContent === 'string') {
+          newContent = [[module.i, newContent, '']];
+        }
+        
+        update(newContent);
+      }
+    )
+  }
+
+  module.hot.dispose(function() { 
+    update();
+  });
+}
 
 /***/ }),
 
@@ -18564,7 +19028,7 @@ var ACTUALIZAR_TOTAL = 'ACTUALIZAR_TOTAL';
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! next-client-pages-loader?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js!./");
-module.exports = __webpack_require__(/*! D:\Descargas\crmcliente\crmcliente\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
+module.exports = __webpack_require__(/*! D:\Descargas\Crmcliente\Crmcliente\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
 
 
 /***/ }),

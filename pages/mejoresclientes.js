@@ -1,74 +1,80 @@
-import React, {useEffect} from 'react';
-import Layout from '../components/Layout'
+import React, { useEffect } from "react";
+import Layout from "../components/layout";
 import {
-    BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  } from 'recharts';
-import { gql, useQuery } from '@apollo/client';
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { gql, useQuery } from "@apollo/client";
 
 const MEJORES_CLIENTES = gql`
-    query mejoresClientes {
-            mejoresClientes {
-            cliente {
-                nombre
-                empresa
-            }
-            total
-        }
+  query mejoresClientes {
+    mejoresClientes {
+      cliente {
+        nombre
+        empresa
+      }
+      total
     }
+  }
 `;
 
 const MejoresClientes = () => {
+  const { data, loading, error, startPolling, stopPolling } = useQuery(
+    MEJORES_CLIENTES
+  );
 
-    const {data, loading, error, startPolling, stopPolling} = useQuery(MEJORES_CLIENTES);
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
 
-  
+  if (loading) return "cargando...";
 
-    useEffect(() => {
-        startPolling(1000);
-        return () => {
-            stopPolling();
-        }
-    }, [startPolling, stopPolling])
+  console.log(data);
 
-    if(loading) return 'cargando...';
+  const { mejoresClientes } = data;
 
-    console.log(data);
+  const clienteGrafica = [];
 
+  mejoresClientes.map((cliente, index) => {
+    clienteGrafica[index] = {
+      ...cliente.cliente[0],
+      total: cliente.total,
+    };
+  });
 
-    const {mejoresClientes} = data;
-    
-    const clienteGrafica = [];
+  return (
+    <Layout>
+      <h1 className="text-2xl text-gray-800 font-light">Mejores Clientes</h1>
 
-    mejoresClientes.map((cliente, index) => {
-        clienteGrafica[index] = {
-            ...cliente.cliente[0],
-            total: cliente.total
-        }
-    })
+      <BarChart
+        className="mt-10"
+        width={600}
+        height={500}
+        data={clienteGrafica}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="nombre" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="total" fill="#3182CE" />
+      </BarChart>
+    </Layout>
+  );
+};
 
-
-    return (
-        <Layout>
-            <h1 className="text-2xl text-gray-800 font-light">Mejores Clientes</h1>
-
-            <BarChart
-                className="mt-10"
-                width={600}
-                height={500}
-                data={clienteGrafica}
-                margin={{
-                    top: 5, right: 30, left: 20, bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nombre" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="total" fill="#3182CE" />
-            </BarChart>
-        </Layout>
-     );
-}
- 
 export default MejoresClientes;

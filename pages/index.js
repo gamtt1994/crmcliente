@@ -1,71 +1,140 @@
-import Layout from '../components/Layout';
-import Cliente from '../components/Cliente';
-import { gql, useQuery } from '@apollo/client'
-import { useRouter } from 'next/router';
-import Link from 'next/link'
-
-const OBTENER_CLIENTES_USUARIO = gql`
-    query obtenerClientesVendedor {
-        obtenerClientesVendedor {
-            id
-            nombre
-            apellido
-            empresa
-            email
-        }
-    }
-`;
+import Layout from "../components/layout";
+import Informacion from "../components/interfas/informacion/Informacion";
+import Servicios from "../components/interfas/servicios/Servicios";
 
 const Index = () => {
-
-  const router = useRouter();
-
-  // Consulta de Apollo
-  const { data, loading, error } = useQuery(OBTENER_CLIENTES_USUARIO);
-
-  // console.log(data)
-  // console.log(loading)
-  // console.log(error)
-
-  if(loading) return 'Cargando....';
-
-  if( !data.obtenerClientesVendedor ) {
-    return router.push('/login');
-  } 
-
   return (
-    <div>
+    <>
       <Layout>
-          <h1 className="text-2xl text-gray-800 font-light">Clientes</h1>
-          <Link href="/nuevocliente">
-            <a className="bg-blue-800 py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-800 mb-3 uppercase font-bold w-full lg:w-auto text-center">Nuevo Cliente</a>
-          </Link>
-          
-        <div className="overflow-x-scroll">
-          <table className="table-auto shadow-md mt-10 w-full w-lg">
-            <thead className="bg-gray-800">
-              <tr className="text-white">
-                  <th className="w-1/5 py-2">Nombre</th>
-                  <th className="w-1/5 py-2">Empresa</th>
-                  <th className="w-1/5 py-2">Email</th>
-                  <th className="w-1/5 py-2">Eliminar</th>
-                  <th className="w-1/5 py-2">Editar</th>
-              </tr>
-            </thead>
+        <div className="carousel w-full h-full" id="inicio">
+          <div className="carousel-inner w-full h-full">
+            <input
+              className="carousel-open"
+              type="radio"
+              id="carousel-1"
+              name="carousel"
+              aria-hidden="true"
+              hidden={true}
+              defaultChecked
+            />
 
-            <tbody className="bg-white">
-              {data.obtenerClientesVendedor.map( cliente => (
-                <Cliente 
-                  key={cliente.id}
-                  cliente={cliente}
-                />
-              ))}
-            </tbody>
-          </table>
+            <div className="carousel-item w-full h-full">
+              <img className="w-full h-full" src="slider1.jpg" />
+              <div className="carousel-body content-center ">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"></h3>
+                <h1 className="text-3xl sm:text-3xl md:text-3xl lg:text-6xl xl:text-6xl">
+                  Transporte de Carga
+                </h1>
+                <button className=" w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto">
+                  Contactanos
+                </button>
+              </div>
+            </div>
+
+            <input
+              className="carousel-open"
+              type="radio"
+              id="carousel-2"
+              name="carousel"
+              aria-hidden="true"
+              hidden={true}
+            />
+
+            <div className="carousel-item w-full h-full">
+              <img className="w-full h-full" src="slider2.jpg" />
+              <div className="carousel-body content-center ">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"></h3>
+                <h1 className="text-xl sm:text-xl md:text-3xl lg:text-5xl xl:text-5xl">
+                  Confiabilidad en cada entrega
+                </h1>
+                <button className=" w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto">
+                  ACERCA DE NOSOTROS
+                </button>
+              </div>
+            </div>
+
+            <input
+              className="carousel-open"
+              type="radio"
+              id="carousel-3"
+              name="carousel"
+              aria-hidden="true"
+              hidden={true}
+            />
+
+            <div className="carousel-item w-full h-full">
+              <img className="w-full h-full" src="slider4.jpg" />
+              <div className="carousel-body content-center ">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"></h3>
+                <h1 className="text-xl sm:text-xl md:text-3xl lg:text-5xl xl:text-5xl">
+                  VERIFICACIÓN DEL PRODUCTO
+                </h1>
+                <button className=" w-2/2 sm:w-auto md:w-auto lg:w-auto xl:w-auto">
+                  INFORMACIÓN
+                </button>
+              </div>
+            </div>
+
+            <label
+              htmlFor="carousel-3"
+              className="carousel-control prev control-1"
+            >
+              ‹
+            </label>
+            <label
+              htmlFor="carousel-2"
+              className="carousel-control next control-1"
+            >
+              ›
+            </label>
+            <label
+              htmlFor="carousel-1"
+              className="carousel-control prev control-2"
+            >
+              ‹
+            </label>
+            <label
+              htmlFor="carousel-3"
+              className="carousel-control next control-2"
+            >
+              ›
+            </label>
+            <label
+              htmlFor="carousel-2"
+              className="carousel-control prev control-3"
+            >
+              ‹
+            </label>
+            <label
+              htmlFor="carousel-1"
+              className="carousel-control next control-3"
+            >
+              ›
+            </label>
+            <ol className="carousel-indicators">
+              <li>
+                <label htmlFor="carousel-1" className="carousel-bullet">
+                  •
+                </label>
+              </li>
+              <li>
+                <label htmlFor="carousel-2" className="carousel-bullet">
+                  •
+                </label>
+              </li>
+              <li>
+                <label htmlFor="carousel-3" className="carousel-bullet">
+                  •
+                </label>
+              </li>
+            </ol>
+          </div>
         </div>
+        <Informacion />
+        <Servicios />
       </Layout>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default Index
+export default Index;
